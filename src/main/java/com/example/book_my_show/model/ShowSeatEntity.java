@@ -1,7 +1,8 @@
 package com.example.book_my_show.model;
 
 
-import com.example.book_my_show.Genres.SeatType;
+import com.example.book_my_show.Enum.SeatType;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,9 @@ public class ShowSeatEntity {
     private String seatNo;
 
     private Date bookedAt;
+
+    @ManyToOne
+    @JoinColumn
+    private ShowEntity showEntity;
 
 }

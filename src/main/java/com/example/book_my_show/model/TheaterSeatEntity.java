@@ -1,14 +1,21 @@
 package com.example.book_my_show.model;
 
 
-import com.example.book_my_show.Genres.SeatType;
+import com.example.book_my_show.Enum.SeatType;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
+
+
 @Table(name="theater_seats")
 public class TheaterSeatEntity {
 
@@ -17,7 +24,7 @@ public class TheaterSeatEntity {
 
     private int id;
     private SeatType seatType;
-    private int seatNumber;
+    private String seatNumber;
 
     @ManyToOne
     @JoinColumn

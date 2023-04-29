@@ -4,6 +4,9 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="users")
 @Getter
@@ -28,4 +31,7 @@ public class UserEntity {
     private String mobile;
     private String address;
 
+
+    @OneToMany (mappedBy = "userEntity",cascade = CascadeType.ALL)
+    List<TicketEntity> bookedTicket=new ArrayList<>();
 }

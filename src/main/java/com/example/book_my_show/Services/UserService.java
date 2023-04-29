@@ -1,5 +1,6 @@
 package com.example.book_my_show.Services;
 
+import com.example.book_my_show.Convertors.UserConvertor;
 import com.example.book_my_show.EntryDtos.UserEntryDto;
 import com.example.book_my_show.Repository.UserRepository;
 import com.example.book_my_show.model.UserEntity;
@@ -11,15 +12,11 @@ public class UserService {
         @Autowired
     UserRepository userRepository;
 
-    public void addUser(UserEntryDto userEntryDto){
-
-        UserEntity userEntity= UserEntity.builder().name(userEntryDto.getName()).
-                age(userEntryDto.getAge()).
-                email(userEntryDto.getEmail()).
-                address(userEntryDto.getAddress()).
-                mobile(userEntryDto.getMobile()).build();
+    public String addUser(UserEntryDto userEntryDto) throws Exception,NullPointerException{
+        UserEntity userEntity= UserConvertor.convertUserDtoToEntity(userEntryDto);
 
         userRepository.save(userEntity);
+        return "User Added Successfully !";
 
     }
 }
