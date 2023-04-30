@@ -3,6 +3,7 @@ package com.example.book_my_show.Services;
 import com.example.book_my_show.Convertors.TheaterConvertor;
 import com.example.book_my_show.EntryDtos.TheaterEntryDto;
 import com.example.book_my_show.Enum.SeatType;
+import com.example.book_my_show.Repository.TheaterRepository;
 import com.example.book_my_show.Repository.TheaterSeatRepository;
 import com.example.book_my_show.model.TheaterEntity;
 import com.example.book_my_show.model.TheaterSeatEntity;
@@ -18,10 +19,25 @@ public class TheaterService {
     @Autowired
     TheaterSeatRepository theaterSeatRepository;
 
-    public String addTheater (TheaterEntryDto theaterEntryDto){
+    @Autowired
+    TheaterRepository theaterRepository;
+
+
+
+    public String addTheater (TheaterEntryDto theaterEntryDto) throws Exception {
+
+        if(theaterEntryDto.getName()==null || theaterEntryDto.getLocation()==null){
+
+            throw new Exception ("Name or Location value is not valid.");
+        }
+
 
         TheaterEntity theaterEntity = TheaterConvertor.convertTheaterDtoToEntity(theaterEntryDto);
         List<TheaterSeatEntity> theaterSeatEntityList = createTheaterSeats(theaterEntryDto,theaterEntity);
+
+        theaterEntity.setTheaterSeatEntityList(theaterSeatEntityList);
+
+        theaterRepository.save(theaterEntity);
         return "Theater added successfully !";
     }
     public List<TheaterSeatEntity> createTheaterSeats(TheaterEntryDto theaterEntryDto,TheaterEntity theaterEntity){
@@ -44,7 +60,7 @@ public class TheaterService {
             theaterSeatEntityList.add(theaterSeatEntity);
 
         }
-        theaterSeatRepository.saveAll(theaterSeatEntityList);
+
         return theaterSeatEntityList;
     }
 
