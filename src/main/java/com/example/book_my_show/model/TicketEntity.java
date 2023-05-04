@@ -26,9 +26,11 @@ public class TicketEntity {
 
     private int totalAmmount;
 
-    private String ticketID = UUID.randomUUID().toString();
+    private String ticketID;
 
     private String theaterName;
+
+    private String bookedSeats;
 
 
     @ManyToOne
